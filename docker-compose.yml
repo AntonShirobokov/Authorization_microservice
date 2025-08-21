@@ -1,0 +1,15 @@
+services:
+  authorization-microservice-db:
+    image: postgres:latest
+    container_name: authorization-microservice-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: authorization_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
