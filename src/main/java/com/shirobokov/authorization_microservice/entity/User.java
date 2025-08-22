@@ -1,31 +1,38 @@
 package com.shirobokov.authorization_microservice.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonValue;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
 @Table(name="users")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
     @Id
     @Column(name = "user_id")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID userId;
 
     @Column(name="email")
     private String email;
 
-    @Column(name="password")
-    private String password;
+    @Column(name="password_hash")
+    private String passwordHash;
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name="users_roles", joinColumns=@JoinColumn(name="user_id"),
+    inverseJoinColumns=@JoinColumn(name="role_id"))
+    private List<Role> roles;
 
 }
