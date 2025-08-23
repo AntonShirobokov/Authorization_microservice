@@ -8,6 +8,7 @@ import com.shirobokov.authorization_microservice.mapper.UserMapper;
 import com.shirobokov.authorization_microservice.repository.RoleRepository;
 import com.shirobokov.authorization_microservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,8 @@ public class UserService {
 
     private final RoleRepository roleRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public void save(User user) throws UserAlreadyExistsException {
         // Проверка, существует ли пользователь с таким email
@@ -35,6 +38,8 @@ public class UserService {
         // Устанавливаем роль и дату создания
         user.setRoles(Collections.singletonList(role));
         user.setCreatedAt(LocalDateTime.now());
+
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
 
         // Сохраняем пользователя
         userRepository.save(user);

@@ -1,5 +1,10 @@
 create table users (
     user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    middle_name varchar(50),
+
     email varchar(100) NOT NULL UNIQUE,
     password_hash varchar(100) NOT NULL,
     created_at timestamp NOT NULL

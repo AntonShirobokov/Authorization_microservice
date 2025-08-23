@@ -1,7 +1,7 @@
 package com.shirobokov.authorization_microservice.restcontroller;
 
 
-import com.shirobokov.authorization_microservice.dto.UserDTO;
+import com.shirobokov.authorization_microservice.dto.UserRegistrationDTO;
 import com.shirobokov.authorization_microservice.entity.User;
 import com.shirobokov.authorization_microservice.exception.UserAlreadyExistsException;
 import com.shirobokov.authorization_microservice.exception.ValidationErrorResponse;
@@ -32,9 +32,9 @@ public class RegistrationController {
 
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody UserDTO userDTO, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<?> registration(@RequestBody UserRegistrationDTO userRegistrationDTO, BindingResult bindingResult) throws Exception {
         try {
-            User user = userMapper.toUser(userDTO);
+            User user = userMapper.toUser(userRegistrationDTO);
             userValidator.validate(user, bindingResult);
             if (bindingResult.hasErrors()){
                 Map<String, String> errors = new HashMap<>();
@@ -47,7 +47,6 @@ public class RegistrationController {
         } catch (UserAlreadyExistsException exception) {
             throw new UserAlreadyExistsException("Пользователь с таким email уже зарегестрирован");
         }
-
 
         return ResponseEntity.ok().body("Пользователь зарегестрирован");
     }
