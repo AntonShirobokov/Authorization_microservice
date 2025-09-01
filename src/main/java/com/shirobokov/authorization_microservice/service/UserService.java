@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,15 @@ public class UserService {
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    public User findUser(String email) throws Exception {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new Exception("Пользователь не найден");
+        }
+        return user.get();
+    }
+
 
     @Transactional
     public void save(User user) throws UserAlreadyExistsException {
@@ -44,4 +54,6 @@ public class UserService {
         // Сохраняем пользователя
         userRepository.save(user);
     }
+
+
 }

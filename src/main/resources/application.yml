@@ -12,3 +12,11 @@ spring:
     url: jdbc:postgresql://localhost:5433/authorization_db
     user: postgres
     password: postgres
+
+jwt:
+  private:
+    key:
+      path: keys/privateLink2U.pem
+  public:
+    key:
+      path: keys/publicLink2U.pem
