@@ -1,6 +1,7 @@
 package com.shirobokov.authorization_microservice.restcontroller;
 
 
+import com.shirobokov.authorization_microservice.dto.RefreshTokenDTO;
 import com.shirobokov.authorization_microservice.dto.UserLoginDTO;
 import com.shirobokov.authorization_microservice.entity.User;
 import com.shirobokov.authorization_microservice.security.CustomUserDetails;
@@ -57,5 +58,12 @@ public class AuthorizationController {
         return ResponseEntity.ok().body(keys);
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<?> getNewAccessToken(@RequestBody RefreshTokenDTO refreshTokenDTO) {
+
+        boolean isValid = jwtTokenService.validateRefreshToken(refreshTokenDTO.getRefreshToken());
+
+        return ResponseEntity.ok().body(isValid);
+    }
 
 }
