@@ -44,4 +44,7 @@ public class User {
     inverseJoinColumns=@JoinColumn(name="role_id"))
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<RefreshToken> blackList;
+
 }

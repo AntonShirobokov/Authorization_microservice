@@ -23,4 +23,6 @@ public class RegistrationExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), "Неверный логин или пароль", LocalDateTime.now()));
     }
+
+
 }
