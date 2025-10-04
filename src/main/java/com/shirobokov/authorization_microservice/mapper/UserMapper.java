@@ -4,15 +4,14 @@ import com.shirobokov.authorization_microservice.dto.UserLoginDTO;
 import com.shirobokov.authorization_microservice.dto.UserRegistrationDTO;
 import com.shirobokov.authorization_microservice.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserRegistrationDTO toUserRegistrationDTO(User user);
-
+    @Mapping(source = "password", target="passwordHash")
     User toUser(UserRegistrationDTO userRegistrationDTO);
 
-    UserLoginDTO toUserLoginDTO (User user);
-
+    @Mapping(source = "password", target="passwordHash")
     User toUser(UserLoginDTO userLoginDTO);
 }

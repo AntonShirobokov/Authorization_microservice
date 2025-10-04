@@ -8,9 +8,11 @@ import com.shirobokov.authorization_microservice.exception.ValidationErrorRespon
 import com.shirobokov.authorization_microservice.mapper.UserMapper;
 import com.shirobokov.authorization_microservice.service.UserService;
 import com.shirobokov.authorization_microservice.util.UserValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +34,12 @@ public class RegistrationController {
 
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody UserRegistrationDTO userRegistrationDTO, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<?> registration(@RequestBody UserRegistrationDTO userRegistrationDTO) throws Exception {
         try {
             User user = userMapper.toUser(userRegistrationDTO);
+
+            BindingResult bindingResult = new BeanPropertyBindingResult(user, "user");
+
             userValidator.validate(user, bindingResult);
             if (bindingResult.hasErrors()){
                 Map<String, String> errors = new HashMap<>();
