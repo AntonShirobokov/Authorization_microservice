@@ -1,6 +1,6 @@
 services:
   authorization-microservice-db:
-    image: postgres:latest
+    image: postgres:18
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -8,7 +8,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql
     networks:
       - microservices-network
   authorization-microservice:
