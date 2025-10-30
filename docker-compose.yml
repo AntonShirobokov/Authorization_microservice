@@ -9,19 +9,6 @@ services:
       - "5433:5432"
     volumes:
       - db-data:/var/lib/postgresql
-    networks:
-      - microservices-network
-  authorization-microservice:
-    build: .
-    depends_on:
-      - authorization-microservice-db
-    ports:
-      - "8081:8080"
-    networks:
-      - microservices-network
+
 volumes:
   db-data:
-
-networks:
-  microservices-network:
-    external: true

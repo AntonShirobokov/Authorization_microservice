@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/resources/keys/publicLink2U.pem
-src/main/resources/keys/privateLink2U.pem
+src/main/resources/keys/publicSortlyQR.pem
+src/main/resources/keys/privateSortlyQR.pem

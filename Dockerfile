@@ -8,4 +8,4 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jdk
 WORKDIR /authorization_microservice
 COPY --from=builder /app/target/*.jar Authorization_microservice-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "Authorization_microservice-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "Authorization_microservice-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=prod"]
